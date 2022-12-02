@@ -4,6 +4,7 @@ import { SessionProvider } from 'next-auth/react';
 
 import { trpc } from '../utils/trpc';
 import Head from 'next/head';
+import { MantineProvider } from '@mantine/core';
 
 const MyApp: AppType<{ session: Session | null }> = ({
 	Component,
@@ -17,7 +18,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<SessionProvider session={session}>
-				<Component {...pageProps} />
+				<MantineProvider
+					withGlobalStyles
+					withNormalizeCSS
+					theme={{
+						/** Put your mantine theme override here */
+						colorScheme: 'light',
+					}}>
+					<Component {...pageProps} />
+				</MantineProvider>
 			</SessionProvider>
 		</>
 	);
